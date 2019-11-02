@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./favicon.ico" rel="icon"
+        type="image/x-icon">
+    <script src="https://kit.fontawesome.com/04407fcf01.js" crossorigin="anonymous"></script>
+    
+
+    <title>Balloon Pop!</title>
+    <style>
+      html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}
+      
+      .clearfix:after {visibility: hidden; display: block; font-size: 0; content: ''; clear: both; height: 0; }
+      
+      html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
+      
+      *, *:before, *:after {box-sizing: inherit}
+      
+      .visuallyhidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            background-color: palegreen;
+            border-style: ridge;
+            border-color: lightgreen;
+        }
+        span{
+            text-transform: uppercase;
+            padding-left: 10%;
+        
+        }
+
+        .balloonGrid {
+            display: grid;
+            padding-top: 210px;
+            clear: both;
+            grid-template-columns: repeat(3, 260px);
+            grid-template-rows: repeat(3, auto);
+            grid-gap: 25%;
+            z-index: -999;
+            animation: resize 3000ms ease infinite both;
+        }
+        @keyframes resize {
+    0% {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    
+    25% {
+        grid-template-columns: 1fr 2fr 3fr;
+        grid-template-rows: 1fr 2fr 3fr;
+    }
+    
+    50% {
+        grid-template-columns: 1fr 5fr 1fr;
+        grid-template-rows: 1fr 5fr 1fr;
+    }
+    
+    75% {
+        grid-template-columns: 3fr 2fr 1fr;
+        grid-template-rows: 3fr 2fr 1fr;
+    }
+    
+    100% {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+}
+
+
+
+        .player-assist {
+
+            text-transform: uppercase;
+            font-size: 20px;
+            animation-duration: 800ms;
+            animation-name: blink;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            background: #c2e59c;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #64b3f4, #c2e59c);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fas.fa-fan {
+            position: absolute;
+            z-index: 999;
+            border-radius: 550px;
+            font-size: 120px;
+            background: rgba(255, 255, 255, 0);
+            animation-name: spin;
+            animation-duration: 2500ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .fab.fa-fly {
+            border-radius: 50px;
+            font-size: 160px;
+            z-index: -999;
+        }
+       
+        .popped {
+            opacity: 0;
+        }
+        nav {
+
+            border-color: lightgreen;
+  position: fixed;
+  font-family: Montserrat;
+  z-index: 999;
+}
+
+.navbar {
+text-transform: uppercase;
+font-size: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  }
+
+        .balloon {
+            box-sizing: border-box;
+            border-radius: 50px;
+            width: 120px;
+            height: 120px;
+            z-index: 995;
+            
+        }
+
+
+        .balloon {
+  --color2: 36;
+  --color2: 76;
+  --delay: 0ms;
+  background-color: hsl(var(--color1), 100%, 60%);
+  animation: colorChange 3000ms ease var(--delay) infinite both;
+}
+.item:nth-child(4n - 2) {
+  --delay: 1000ms;
+}
+.item:nth-child(4n) {
+  --delay: 2000ms;
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: #ffb647;
+  }
+  25% {
+    background-color: #ceff47;
+  }
+  50% {
+    background-color: #47afff;
+  }
+  75% {
+    background-color: #ff47f0;
+  }
+  100% {
+    background-color: #ffb647;
+  }
+}
+        /* .red{
+    background-color: red;
+    height: 100px;
+    width: 100px;
+}
+.blue{
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+}
+.green{
+    background-color: greenyellow;
+    height: 100px;
+    width: 100px;
+}
+    .red-test{
+border:3px solid firebrick;
+
+    }
+    .blue-test{
+border:3px solid rgb(34, 48, 178);
+
+    }
+    .green-test{
+border:3px solid  greenyellow;
+
+    } */
+    </style>
+</head>
+
+
+<body>
+    <h1>pop a balloon for a cool pew pew!</h1>
+    
+    <main>
+
+        <div class="player-assist">
+            <i class="fas fa-arrow-down" aria-hidden="true"></i>
+            <i class="fas fa-arrow-down" aria-hidden="true"></i>
+            <i class="fas fa-arrow-down" aria-hidden="true"></i>
+            <i class="fas fa-arrow-down" aria-hidden="true"></i>
+
+            Try throwing this shuriken at one!
+
+        </div>
+       <nav>
+            <div class="navbar">You lose in<span id="timer">1:00<span>
+            </div>
+       </nav>
+        <i class="fas fa-fan"></i>
+        <!-- Animation -->
+        <div class="balloonGrid">
+
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+                <span>&nbsp &nbsp &nbsp easy</span>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+              
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+                <span>&nbsp &nbsp harder</span>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+                <span>frustrating</span>
+            </div>
+            <div class="balloon ui-droppable">
+                <i class="fab fa-fly"></i>
+            </div>
+        </div>
+
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+        integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
+    <script src="balloon.js">
+
+    </script>
+
+
+</body>
+
+</html>
